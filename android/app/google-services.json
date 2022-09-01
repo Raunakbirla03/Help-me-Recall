@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1008674475935",
+    "project_id": "helpmerecall",
+    "storage_bucket": "helpmerecall.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1008674475935:android:c991a1d27992550ceeb7aa",
+        "android_client_info": {
+          "package_name": "com.example.counter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1008674475935-eeg5f814r3evlia7pqssmekopon2dhq6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTiBktomBH_97liWnNb-dc2DmzX1yGakQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1008674475935-eeg5f814r3evlia7pqssmekopon2dhq6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
