@@ -1,4 +1,5 @@
 import 'package:counter/profile_screen.dart';
+import 'package:counter/sign_up.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -90,15 +91,18 @@ class _LoginScreenState extends State<LoginScreen> {
             "Help Me Recall",
             style: TextStyle(
               color: Colors.black,
-              fontSize: 28.0,
+              fontSize: 44.0,
               fontWeight: FontWeight.bold,
             ),
+          ),
+          const SizedBox(
+            height: 12.0,
           ),
           const Text(
             "Login",
             style: TextStyle(
               color: Colors.black,
-              fontSize: 44.0,
+              fontSize: 28.0,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -128,14 +132,14 @@ class _LoginScreenState extends State<LoginScreen> {
             height: 12.0,
           ),
           const Text(
-            "Don't Remember your Password ? ",
+            "Forgot password ?",
             style: TextStyle(color: Colors.blue),
           ),
           const SizedBox(
-            height: 88.0,
+            height: 66.0,
           ),
           Container(
-            width: double.infinity,
+            width: MediaQuery.of(context).size.width,
             child: RawMaterialButton(
               fillColor: const Color(0xFF0069FE),
               elevation: 0.0,
@@ -160,8 +164,32 @@ class _LoginScreenState extends State<LoginScreen> {
                   )),
             ),
           ),
+          const SizedBox(
+            height: 26.0,
+          ),
+          signUpOption()
         ],
       ),
+    );
+  }
+
+  Row signUpOption() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text("Don't have account?",
+            style: TextStyle(color: Colors.black)),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SignUpScreen()));
+          },
+          child: const Text(
+            " Sign Up",
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+        )
+      ],
     );
   }
 }
