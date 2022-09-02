@@ -1,6 +1,8 @@
 import 'package:counter/main.dart';
 import 'package:counter/profile_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -77,8 +79,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0)),
                 onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => ProfileScreen()));
+                  FirebaseAuth.instance
+                      .createUserWithEmailAndPassword(
+                          email: _emailController.text,
+                          password: _passwordController.text)
+                      .then((value) {
+                    print("Created New Account");
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProfileScreen()));
+                  }).onError((error, stackTrace) {
+                    print("Error ${error.toString()}");
+                  });
                 },
                 child: const Text("Sign Up",
                     style: TextStyle(
