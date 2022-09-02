@@ -3,6 +3,7 @@ import 'package:counter/sign_up.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,8 +15,27 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final storage = new FlutterSecureStorage();
+    Future<bool> checkLoginStatus() async {
+      String? value = await storage.read(key: "uid");
+      if (value == null) {
+        return false;
+      }
+      return true;
+    }
+
     return MaterialApp(
-      home: HomePage(),
+      home: FutureBuilder(
+          future: checkLoginStatus(),
+          builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+            if (snapshot.data == false) {
+              return HomePage();
+            }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            return ProfileScreen();
+          }),
     );
   }
 }
@@ -59,6 +79,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final storage = new FlutterSecureStorage();
   static Future<User?> loginUsingEmailPassword(
       {required String email,
       required String password,
@@ -152,7 +173,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       email: _emailController.text,
                       password: _passwordController.text,
                       context: context);
-                  print(user);
+                  print(user?.uid);
+                  await storage.write(key: "uid", value: user?.uid);
                   if (user != null) {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => ProfileScreen()));
