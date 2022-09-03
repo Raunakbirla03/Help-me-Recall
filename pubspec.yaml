@@ -27,6 +27,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  google_fonts: ^3.0.1
   flutter:
     sdk: flutter
 
@@ -62,6 +63,18 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - assets/logout.png
+    - assets/top_header.jpg
+    - assets/folder.png
+    - assets/map.png
+    - assets/notes.png
+    - assets/reminder.png
+  
+  fonts:
+    - family: Montserrat Regular
+      fonts:
+         - asset: assets/Montserrat-Regular.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:

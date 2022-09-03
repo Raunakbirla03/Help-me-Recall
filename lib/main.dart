@@ -112,10 +112,10 @@ class _LoginScreenState extends State<LoginScreen> {
             const Text(
               "Help Me Recall",
               style: TextStyle(
-                color: Colors.black,
-                fontSize: 44.0,
-                fontWeight: FontWeight.bold,
-              ),
+                  fontFamily: "Montserrat Regular",
+                  color: Colors.black,
+                  fontSize: 44,
+                  fontWeight: FontWeight.w600),
             ),
             const SizedBox(
               height: 12.0,
@@ -123,10 +123,10 @@ class _LoginScreenState extends State<LoginScreen> {
             const Text(
               "Login",
               style: TextStyle(
-                color: Colors.black,
-                fontSize: 28.0,
-                fontWeight: FontWeight.bold,
-              ),
+                  fontFamily: "Montserrat Regular",
+                  color: Colors.blueAccent,
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold),
             ),
             const SizedBox(
               height: 44.0,
@@ -155,7 +155,8 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             const Text(
               "Forgot password ?",
-              style: TextStyle(color: Colors.blue),
+              style: TextStyle(
+                  fontFamily: "Montserrat Regular", color: Colors.blue),
             ),
             const SizedBox(
               height: 66.0,
@@ -182,6 +183,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
                 child: const Text("Login",
                     style: TextStyle(
+                      fontFamily: "Montserrat Regular",
                       color: Colors.white,
                       fontSize: 18.0,
                     )),
@@ -202,15 +204,19 @@ class _LoginScreenState extends State<LoginScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Text("Don't have account?",
-            style: TextStyle(color: Colors.black)),
+            style: TextStyle(
+                fontFamily: "Montserrat Regular", color: Colors.black)),
         GestureDetector(
           onTap: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => SignUpScreen()));
           },
           child: const Text(
-            " Sign Up",
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            " SIGN UP",
+            style: TextStyle(
+                fontFamily: "Montserrat Regular",
+                color: Colors.black,
+                fontWeight: FontWeight.bold),
           ),
         )
       ],
