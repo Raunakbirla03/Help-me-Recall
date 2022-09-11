@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:counter/notes_screen.dart';
+import 'package:counter/note_editor.dart';
 
 class NoteReaderScreen extends StatefulWidget {
   NoteReaderScreen(this.doc, {Key? key}) : super(key: key);
@@ -57,6 +59,19 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
           ],
         ),
       ),
+      /*
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.red,
+        onPressed: () async {
+          final docUser = FirebaseFirestore.instance.collection('Notes').doc(
+              /* insert id */);
+          docUser.delete();
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => NotesScreen()));
+        },
+        child: Icon(Icons.delete),
+      ),
+      */
     );
   }
 }
