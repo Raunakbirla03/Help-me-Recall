@@ -70,7 +70,7 @@ class _NotesScreenState extends State<NotesScreen> {
                   );
                 }
                 return Text(
-                  "There's no notes ",
+                  "There are no notes ",
                   style: cardTextStyle2,
                 );
               },

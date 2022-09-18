@@ -12,8 +12,19 @@ class NoteReaderScreen extends StatefulWidget {
 }
 
 class _NoteReaderScreenState extends State<NoteReaderScreen> {
+  late TextEditingController _titleController;
+  late TextEditingController _mainController;
+  @override
+  void initState() {
+    _titleController = TextEditingController(text: widget.doc['note_title']);
+    _mainController = TextEditingController(text: widget.doc['note_content']);
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    String date = DateTime.now().toString();
     int color_id = widget.doc['color_id'];
     var cardTextStyle1 = TextStyle(
         fontFamily: "Montserrat Regular",
@@ -28,51 +39,90 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
         fontSize: 13.0,
         fontWeight: FontWeight.w500);
     return Scaffold(
-      backgroundColor: cardsColor[color_id],
-      appBar: AppBar(
         backgroundColor: cardsColor[color_id],
-        elevation: 0.0,
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              widget.doc["note_title"],
-              style: cardTextStyle1,
-            ),
-            SizedBox(
-              height: 13.0,
-            ),
-            Text(
-              widget.doc["creation_date"],
-              style: cardTextStyle3,
-            ),
-            SizedBox(
-              height: 28.0,
-            ),
-            Text(
-              widget.doc["note_content"],
-              style: cardTextStyle2,
-            ),
-          ],
+        appBar: AppBar(
+          leading: const BackButton(
+            color: Colors.black,
+          ),
+          backgroundColor: cardsColor[color_id],
+          elevation: 0.0,
         ),
-      ),
-      /*
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.red,
-        onPressed: () async {
-          final docUser = FirebaseFirestore.instance.collection('Notes').doc(
-              /* insert id */);
-          docUser.delete();
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => NotesScreen()));
-        },
-        child: Icon(Icons.delete),
-      ),
-      */
-    );
+        body: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextField(
+                controller: _titleController,
+                style: cardTextStyle1,
+                decoration: new InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'Note Title',
+                ),
+              ),
+              SizedBox(
+                height: 13.0,
+              ),
+              Text(
+                widget.doc["creation_date"],
+                style: cardTextStyle3,
+              ),
+              SizedBox(
+                height: 28.0,
+              ),
+              TextField(
+                maxLines: null,
+                controller: _mainController,
+                style: cardTextStyle2,
+                decoration: new InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'Note Content',
+                ),
+              ),
+            ],
+          ),
+        ),
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(left: 30),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              FloatingActionButton(
+                backgroundColor: Colors.red,
+                onPressed: () async {
+                  final docUser = FirebaseFirestore.instance
+                      .collection('Notes')
+                      .doc(widget.doc.id);
+                  docUser.delete();
+                  Navigator.pop(context,
+                      MaterialPageRoute(builder: (context) => NotesScreen()));
+                },
+                heroTag: "gaandu",
+                child: Icon(Icons.delete),
+              ),
+              Expanded(child: Container()),
+              FloatingActionButton(
+                backgroundColor: Color(0xFF0065FF),
+                onPressed: () async {
+                  FirebaseFirestore.instance
+                      .collection("Notes")
+                      .doc(widget.doc.id)
+                      .update({
+                    "note_title": _titleController.text,
+                    "creation_date": date,
+                    "note_content": _mainController.text,
+                    "color_id": color_id
+                  }).then((value) {
+                    //print(value.id);
+                    Navigator.pop(context);
+                  }).catchError((error) =>
+                          print("Failed to add a new note due to $error"));
+                },
+                child: Icon(Icons.save),
+              ),
+            ],
+          ),
+        ));
   }
 }
 
