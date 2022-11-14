@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.16.2 <3.0.0"
+  sdk: ">=2.17.3 <3.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -45,9 +45,20 @@ dependencies:
   image_picker: ^0.8.5+3
   dio: ^4.0.6
   path: ^1.6.2
-  convert: ^2.1.1
+  # convert: ^2.1.1
   geocoder: ^0.2.1
   maps_launcher: ^2.0.1
+  equatable: ^2.0.3
+  flutter_bloc: ^8.0.1
+  awesome_notifications: ^0.6.21
+  bloc: ^8.0.3
+  dynamic_color: ^1.4.0
+  validators: ^3.0.0
+  bloc_concurrency: ^0.2.0
+  sembast: ^3.2.0+1
+  sembast_web: ^2.0.1+1
+  path_provider: ^2.0.11
+  url_launcher: ^6.1.5
 
 dev_dependencies:
   flutter_test:
@@ -58,10 +69,26 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^1.0.0
+  flutter_lints: ^2.0.0
+  bloc_test: ^9.0.3
+  mocktail: ^0.3.0
+  flutter_launcher_icons: ^0.10.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+
+flutter_icons:
+  android: true
+  adaptive_icon_background: "#D9E2FF"
+  adaptive_icon_foreground: "assets/ic_launcher_adaptive_fore.png"
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/logo.png"
+  web: 
+    generate: true
+    image_path: "assets/logo_rounded_rect.png"
+    background_color: "#FEFBFE"
+    theme_color: "#D9E2FF"
 
 # The following section is specific to Flutter.
 flutter:

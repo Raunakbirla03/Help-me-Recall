@@ -1,3 +1,4 @@
+import 'package:counter/lib2/main.dart';
 import 'package:counter/main.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,6 +9,10 @@ import 'package:counter/reminder_screen.dart';
 import 'package:counter/upload_screen.dart';
 import 'package:counter/notes_screen.dart';
 import 'package:counter/location_screen.dart';
+import 'package:counter/lib2/data/tools/notification_handler.dart';
+import 'package:counter/lib2/data/repositories/persisted_reminder_repository.dart';
+
+import 'lib2/data/repositories/reminder_repository.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -19,6 +24,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   final storage = new FlutterSecureStorage();
+  final ReminderRepository repository = PersistedReminderRepository();
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var cardTextStyle = TextStyle(
@@ -101,11 +107,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   crossAxisCount: 2,
                   children: <Widget>[
                     GestureDetector(
-                      onTap: () {
+                      onTap: () async {
+                        String? value = await storage.read(key: "x");
+                        if (value != "1") {
+                          final NotificationHandler notificationHandler =
+                              NotificationHandler(repository);
+                          await notificationHandler.initialize();
+
+                          await storage.write(key: "x", value: "1");
+                        }
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ReminderScreen()));
+                                builder: (context) => ReminderNewPage(
+                                      reminderRepository: repository,
+                                    )));
                       },
                       child: Card(
                         shape: RoundedRectangleBorder(
